@@ -68,7 +68,6 @@ function addListItem(task: Task) {
     }
     else { 
       tasks[index].title = newTitle;
-      console.log(label.children);
       label.children[0].innerHTML = newTitle;
       saveTasks();
     }
