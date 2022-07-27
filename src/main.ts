@@ -36,8 +36,11 @@ form?.addEventListener("submit", e => {
 function addListItem(task: Task) {
   const item = document.createElement('li');
   const label = document.createElement('label');
+  const itemTitle = document.createElement('p');
   const checkbox = document.createElement('input');
   const deleteBtn = document.createElement('button');
+  const editBtn = document.createElement('button');
+  itemTitle.innerHTML = task.title;
   checkbox.type = 'checkbox';
   checkbox.checked = task.completed;
   checkbox.classList.add('checkbox')
@@ -55,7 +58,22 @@ function addListItem(task: Task) {
     saveTasks();
   });
 
-  label.append(task.title, checkbox, deleteBtn);
+  editBtn.classList.add('btn', 'btn-primary', 'btn-sm');
+  editBtn.innerHTML = 'Edit';
+  editBtn.addEventListener('click', () => {
+    const index = tasks.indexOf(task);
+    let newTitle = prompt('Edit Task');
+    if (newTitle == null || newTitle == "") {
+      console.log('No changes made');
+    }
+    else { 
+      tasks[index].title = newTitle;
+      label.children[0].innerHTML = newTitle;
+      saveTasks();
+    }
+  });
+
+  label.append(itemTitle, checkbox, editBtn, deleteBtn);
   item.append(label);
   list?.append(item);
 
